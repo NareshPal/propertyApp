@@ -1,12 +1,13 @@
 import Link from "next/link";
 import React from "react";
 
-const HomePage = () => {
+const PropertiesPage = () => {
   return (
     <>
       <div className="text-blue-600 text-3xl">HomePage!</div>
-      <Link href={"/properties"}>Properties</Link>
+      <Link href={"/"}>Home</Link>
     </>
   );
 };
-export default HomePage;
+
+export default PropertiesPage;
