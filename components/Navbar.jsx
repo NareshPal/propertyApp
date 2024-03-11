@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/images/logo-white.png";
@@ -8,8 +9,11 @@ import profileImage from "@/assets/images/profile.png";
 import { FaGoogle } from "react-icons/fa";
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  const pathname = usePathname();
 
   return (
     <nav className="bg-blue-700 border-b border-blue-500">
@@ -56,19 +60,25 @@ const Navbar = () => {
               <div className="flex space-x-2">
                 <Link
                   href="/"
-                  className="text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                  className={`${
+                    pathname == "/" ? "bg-black" : ""
+                  } text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                 >
                   Home
                 </Link>
                 <Link
                   href="/properties"
-                  className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                  className={`${
+                    pathname == "/properties" ? "bg-black" : ""
+                  } text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                 >
                   Properties
                 </Link>
                 <Link
                   href="properties/add"
-                  className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                  className={`${
+                    pathname == "/properties/add" ? "bg-black" : ""
+                  } text-white  hover:bg-gray-900 hover:text-white rounded-md px-3 py-2`}
                 >
                   Add Property
                 </Link>
@@ -124,6 +134,7 @@ const Navbar = () => {
                     id="user-menu-button"
                     aria-expanded="false"
                     aria-haspopup="true"
+                    onClick={() => setIsProfileOpen((prev) => !prev)}
                   >
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">Open user menu</span>
@@ -135,42 +146,44 @@ const Navbar = () => {
                   </button>
                 </div>
                 {/* Profile dropdown */}
-                <div
-                  id="user-menu"
-                  className="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="user-menu-button"
-                  tabIndex={-1}
-                >
-                  <a
-                    href="/profile.html"
-                    className="block px-4 py-2 text-sm text-gray-700"
-                    role="menuitem"
+                {isProfileOpen && (
+                  <div
+                    id="user-menu"
+                    className=" absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="user-menu-button"
                     tabIndex={-1}
-                    id="user-menu-item-0"
                   >
-                    Your Profile
-                  </a>
-                  <a
-                    href="saved-properties.html"
-                    className="block px-4 py-2 text-sm text-gray-700"
-                    role="menuitem"
-                    tabIndex={-1}
-                    id="user-menu-item-2"
-                  >
-                    Saved Properties
-                  </a>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700"
-                    role="menuitem"
-                    tabIndex={-1}
-                    id="user-menu-item-2"
-                  >
-                    Sign Out
-                  </a>
-                </div>
+                    <a
+                      href="/profile.html"
+                      className="block px-4 py-2 text-sm text-gray-700"
+                      role="menuitem"
+                      tabIndex={-1}
+                      id="user-menu-item-0"
+                    >
+                      Your Profile
+                    </a>
+                    <a
+                      href="saved-properties.html"
+                      className="block px-4 py-2 text-sm text-gray-700"
+                      role="menuitem"
+                      tabIndex={-1}
+                      id="user-menu-item-2"
+                    >
+                      Saved Properties
+                    </a>
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-700"
+                      role="menuitem"
+                      tabIndex={-1}
+                      id="user-menu-item-2"
+                    >
+                      Sign Out
+                    </a>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -182,19 +195,25 @@ const Navbar = () => {
           <div className="space-y-1 px-2 pb-3 pt-2">
             <Link
               href="/"
-              className="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
+              className={`${
+                pathname == "/" ? "bg-black" : ""
+              }  text-white block rounded-md px-3 py-2 text-base font-medium`}
             >
               Home
             </Link>
             <Link
               href="/properties"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+              className={`${
+                pathname == "/properties" ? "bg-black" : ""
+              }  text-white block rounded-md px-3 py-2 text-base font-medium`}
             >
               Properties
             </Link>
             <Link
-              href="/property/add"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+              href="/properties/add"
+              className={`${
+                pathname == "/properties/add" ? "bg-black" : ""
+              }  text-white block rounded-md px-3 py-2 text-base font-medium`}
             >
               Add Property
             </Link>
